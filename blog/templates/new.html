@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h1>New Blog Post</h1>
+{% if form %}
+<p> the form is exists</p>
+{% endif %}
+<form method="post" action="">
+  {{ form.render()}}
+</form>
+</form>
+{% endblock %}
+
+

@@ -1,6 +1,6 @@
 import web
 
-db = web.database(dbn='sqlite3', db='sql/main.db')
+db = web.database(dbn='sqlite', db='sql/main.db')
 
 def get_pages():
     return db.select('pages', order='id DESC')

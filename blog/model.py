@@ -3,7 +3,7 @@
 
 import web, datetime
 
-db = web.database(dbn="mysql", db="blog", user="root", passwd='root')
+db = web.database(dbn="sqlite", db="sql/main.db")
 
 def get_posts():
     return db.select('entries', order='id DESC')
@@ -15,7 +15,7 @@ def get_post(id):
         return None
 
 def new_post(title, text):
-    db.insert('entries', where='id=$id', vars=locals())
+    db.insert('entries', title=title, content=text, posted_on=datetime.datetime.utcnow())
 
 def del_post(id):
     db.delete('entries', where='id=$id', vars=locals())

@@ -1,6 +1,10 @@
+#!/usr/bin/python2.7
+#coding=utf-8
+
 import web
 import model
 import markdown
+from web.contrib.template import render_jinja
 
 urls = (
     '/', 'Index',
@@ -15,7 +19,10 @@ t_globals = {
     'markdown': markdown.markdown,
 }
 
-render = web.template.render('templates', base='base', globals=t_globals)
+render = render_jinja(
+    'templates', # 模板路径
+    encoding = 'utf-8', # 编码
+)
 
 class Index:
     def GET(self):
@@ -32,14 +39,14 @@ class Page:
         return render.view(page)
 
 class New:
-    
+
     def not_page_exists(url):
         """
         Arguments:
         - `url`:
         """
         return not bool(model.get_page_by_url(url))
-    
+
     page_exists_validator = web.form.Validator('Page already exists', not_page_exists)
 
     form = web.form.Form(
@@ -52,7 +59,7 @@ class New:
         url = web.input(url='').url
         form = self.form()
         return render.new(form)
-    
+
     def POST(self):
         form = self.form()
         if not form.validates():
@@ -62,9 +69,9 @@ class New:
 
 class Delete:
     """
-    
+
     """
-    
+
     def POST(self, id):
         model.del_page(int(id))
         raise web.seeother('/')
@@ -95,6 +102,6 @@ app = web.application(urls, globals())
 if __name__ == "__main__":
     app.run()
 
-         
-        
-        
+
+
+

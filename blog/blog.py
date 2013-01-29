@@ -3,6 +3,7 @@
 
 import web
 import model
+from web.contrib.template import render_jinja
 
 urls = (
     '/', 'Index',
@@ -16,10 +17,12 @@ t_globals = {
     'datestr': web.datestr
 }
 
-render = web.template.render('templates/')
+render = render_jinja(
+    'templates', # 模板路径
+    encoding='utf-8', #编码
+)
 
 class Index:
-    
     def GET(self):
         """
         show index page
@@ -35,7 +38,7 @@ class view:
         show single post
         """
         post = model.get_post(int(id))
-        return render.view(post)
+        return render.view(post=post)
 
 class New:
 
@@ -47,13 +50,15 @@ class New:
     
     def GET(self):
         form = self.form()
-        return render.new(form)
+        return render.new(form=form)
     
     def POST(self):
-        form = self.form
+        form = self.form()
+        print '----------'
         if not form.validates():
-            return render.new(form)
-        model.new_post(form.d.title, form.d.cotent)
+            print "========"
+            return render.new(form=form)
+        model.new_post(form.d.title, form.d.content)
         raise web.seeother('/')
 
 class Delete:

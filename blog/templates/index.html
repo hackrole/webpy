@@ -1,21 +1,19 @@
-$def with (page)
+{% extends "base.html" %}
 
-<html>
-  <head>
-    <title>Myblog</title>
-    <style type="text/css" media="all">
-      #menu{
-      width:200px;
-      float:right;
-      }
-    </style>
-  </head>
-  <body>
-    <ul id="menu">
-      <li><a href="/">Home</a> </li>
-      <li><a href="/new">New Post</a></li>
-    </ul>
-$:page
+{% block title %}
+the blog index
+{% endblock %}
 
-  </body>
-</html>
+{% block body %}
+<ul id="menu">
+  <li><a href="/">Home</a> </li>
+  {% if posts %}
+  <a href=""> {{ posts.title }}</a>
+  <p>{{ posts.content }}</p>
+  {% else %}
+  <p>the post is now empty</p>
+  {% endif %}
+</ul>
+{% endblock %}
+
+

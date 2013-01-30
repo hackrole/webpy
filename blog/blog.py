@@ -28,7 +28,10 @@ class Index:
         show index page
         """
         posts = model.get_posts()
-        return render.index(posts)
+        for post in posts:
+            print post['title']
+            print post['content']
+        return render.index(posts=posts)
 
 
 class view:
@@ -54,9 +57,7 @@ class New:
     
     def POST(self):
         form = self.form()
-        print '----------'
         if not form.validates():
-            print "========"
             return render.new(form=form)
         model.new_post(form.d.title, form.d.content)
         raise web.seeother('/')

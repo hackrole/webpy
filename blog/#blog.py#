@@ -4,15 +4,13 @@
 import web
 import model
 from web.contrib.template import render_jinja
-import pprint
-
 
 urls = (
     '/', 'Index',
     '/view/(\d+)', 'View',
     '/new', 'New', 'New',
     '/delete/(\d+)', 'Delete',
-    '/edit/(\d+)', 'Edit',
+    'edit/(\d+)', 'Edit',
 )
 
 t_globals = {
@@ -36,14 +34,13 @@ class Index:
         return render.index(posts=posts)
 
 
-class View:
+class view:
     
     def GET(self, id):
         """
         show single post
         """
         post = model.get_post(int(id))
-        pprint.pprint(post)
         return render.view(post=post)
 
 class New:
@@ -80,10 +77,9 @@ class Edit:
         post = model.get_post(int(id))
         form = New.form()
         form.fill(post)
-        pprint.pprint(form)
-        return render.edit(post=post, form=form)
+        return render.edit(post, form)
 
-    def POST(self, id):
+    def Post(self, id):
         """
         post posts edit
         """

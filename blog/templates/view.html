@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}
+the blog view page
+{% endblock %}
+
+{% block body %}
+<h1>{{ post.title }} </h1>
+{{ post.posted_on }}
+{{ post.content }} 
+{% endblock %}
+
+
+

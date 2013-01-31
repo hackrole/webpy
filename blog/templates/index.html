@@ -5,14 +5,13 @@ the blog index
 {% endblock %}
 
 {% block body %}
+{{ posts|pprint() }}
 <ul id="menu">
   <li><a href="/">Home</a> </li>
-  {% if posts %}
-  <a href=""> {{ posts.title }}</a>
-  <p>{{ posts.content }}</p>
-  {% else %}
-  <p>the post is now empty</p>
-  {% endif %}
+  {% for post in posts %}
+  <a href=""> {{ post.title }}</a>
+  <p>{{ post.content }}</p>
+  {% endfor %}
 </ul>
 {% endblock %}
 

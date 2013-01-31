@@ -1,11 +1,10 @@
-hello, {{ name }}
-{% if True %}
+$def with (pages)
 
-{% for page in pages %}
-{{ page }}
-{% endfor %}
+<h1>Webpy Wiki</h1>
 
-{% endif %}
+<h2>Page:</h2>
 
-
-
+<ul>
+  $for page in pages:
+       <li><a href="/$page.url">$page.url</li>
+</ul>

@@ -1,0 +1,12 @@
+$def with (page, form)
+
+<h1>Eidt $form.d.title</h1>
+
+<form method="psot" id="" action="">
+  $:form.render()
+</form>
+
+<h2>Delete page</h2>
+<form method="psot" id="" action="/delete/$page.id">
+  <input type="submit" name="submit" value="Delete Page" />
+</form>
